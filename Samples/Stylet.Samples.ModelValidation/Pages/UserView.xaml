@@ -53,19 +53,19 @@
         </Grid.RowDefinitions>
 
         <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=UserName}">UserName:</Label>
-        <TextBox Grid.Row="0" Grid.Column="1" x:Name="UserName" Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Row="0" Grid.Column="1" x:Name="UserName" Text="{Binding UserModel.UserName, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=Email}">Email:</Label>
-        <TextBox Grid.Row="1" Grid.Column="1" x:Name="Email" Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Row="1" Grid.Column="1" x:Name="Email" Text="{Binding UserModel.Email, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=Age}">Age:</Label>
-        <TextBox Grid.Row="2" Grid.Column="1" x:Name="Age" Text="{Binding Age, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Row="2" Grid.Column="1" x:Name="Age" Text="{Binding UserModel.Age, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=Password}">Password:</Label>
-        <PasswordBox Grid.Row="3" Grid.Column="1" x:Name="Password" xaml:Secure.Password="{Binding Password, UpdateSourceTrigger=PropertyChanged}"/>
+        <PasswordBox Grid.Row="3" Grid.Column="1" x:Name="Password" xaml:Secure.Password="{Binding UserModel.Password, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=PasswordConfirmation}">Password Confirmation:</Label>
-        <PasswordBox Grid.Row="4" Grid.Column="1" x:Name="PasswordConfirmation" xaml:Secure.Password="{Binding PasswordConfirmation, UpdateSourceTrigger=PropertyChanged}"/>
+        <PasswordBox Grid.Row="4" Grid.Column="1" x:Name="PasswordConfirmation" xaml:Secure.Password="{Binding UserModel.PasswordConfirmation, UpdateSourceTrigger=PropertyChanged}"/>
         
         <CheckBox Grid.Row="5" Grid.Column="0" IsChecked="{Binding ShouldAutoValidate}">Auto-Validate</CheckBox>
         <Button Grid.Row="5" Grid.Column="1" Command="{s:Action Submit}" HorizontalAlignment="Left">Submit</Button>

@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Stylet.Samples.ModelValidation.Models;
 using System;
 using System.Collections.Generic;
 
@@ -7,12 +8,7 @@ namespace Stylet.Samples.ModelValidation.Pages
     public class UserViewModel : Screen
     {
         private IWindowManager windowManager;
-
-        public string UserName { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string PasswordConfirmation { get; set; }
-        public Stringable<int> Age { get; set; }
+        private UserModel _userModel = new UserModel();
 
         public bool ShouldAutoValidate
         {
@@ -24,13 +20,19 @@ namespace Stylet.Samples.ModelValidation.Pages
             }
         }
 
+        public UserModel UserModel
+        {
+            get => _userModel;
+            set => SetAndNotify(ref _userModel, value);
+        }
+
         public UserViewModel(IWindowManager windowManager, IModelValidator<UserViewModel> validator) : base(validator)
         {
             this.windowManager = windowManager;
             // Force initial validation
             this.Validate();
             // Whenever password changes, we need to re-validate PasswordConfirmation
-            this.Bind(x => x.Password, (o, e) => this.ValidateProperty(() => this.PasswordConfirmation));
+            this.Bind(x => x.UserModel.Password, (o, e) => this.ValidateProperty(() => this.UserModel.PasswordConfirmation));
         }
 
         protected override void OnValidationStateChanged(IEnumerable<string> changedProperties)
@@ -47,13 +49,23 @@ namespace Stylet.Samples.ModelValidation.Pages
         public void Submit()
         {
             if (this.Validate())
+            {
                 this.windowManager.ShowMessageBox("Successfully submitted", "success");
+            }
         }
     }
 
     public class UserViewModelValidator : AbstractValidator<UserViewModel>
     {
-        public UserViewModelValidator()
+        public UserViewModelValidator(UserModelValidator modelValidator)
+        {
+            RuleFor(x => x.UserModel).SetValidator(modelValidator);
+        }
+    }
+
+    public class UserModelValidator : AbstractValidator<UserModel>
+    {
+        public UserModelValidator()
         {
             RuleFor(x => x.UserName).NotEmpty().Length(1, 20);
             RuleFor(x => x.Email).NotEmpty().EmailAddress();

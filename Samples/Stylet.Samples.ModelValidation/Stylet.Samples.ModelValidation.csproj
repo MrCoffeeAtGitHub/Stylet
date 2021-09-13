@@ -82,6 +82,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Stringable.cs" />
     <Compile Include="Xaml\Secure.cs" />
   </ItemGroup>
